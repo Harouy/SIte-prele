@@ -7,25 +7,27 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PersonneService {
-		private final PersonneRepository repo;
-		@Autowired
-		public PersonneService(PersonneRepository repo) {
-			this.repo=repo;
-		}
-	public void create(Personne p) {
-		if(repo.findById(p.getId())==null) {
+	private final PersonneRepository personneRepository;
+
+	public PersonneService(PersonneRepository personneRepository) {
+			this.personneRepository=personneRepository;
+	}
+
+	public void createPersonne(Personne p) {
+		if(personneRepository.findById(p.getId()) != null) {
 			throw new IllegalArgumentException("Ce compte existe déjà");
 		}
 		else {
-			repo.save(p);
+			personneRepository.save(p);
 		}
 	}
-	public Object getpersonne(Personne p) {
-		if(repo.findById(p.getId())==null) {
-			throw new IllegalArgumentException("Ce compte n'existe pas");
-		}
-		
-		return repo.findById(p.getId());
+
+	public List<Personne> getAllPersonnes() {
+		return personneRepository.findAll();
+	}
+
+	public Optional<Personne> getPersonne(Long id) {
+		return personneRepository.findById(id);
 	}
 
 

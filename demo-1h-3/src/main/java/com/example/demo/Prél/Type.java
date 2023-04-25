@@ -1,5 +1,5 @@
 package com.example.demo.Prél;
 
-public enum type {
-P,RS;
+public enum Type {
+    P,RS;
 }

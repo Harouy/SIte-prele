@@ -1,32 +1,34 @@
 package com.example.demo.personne;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping
+@RequestMapping("/Personnes")
 public class PersonneController {
-private final PersonneService Service;
-@Autowired
-private PersonneController(PersonneService Service) {
-	this.Service=Service;
-	
-}
-@GetMapping
-public Object getperso(Personne p) {
-return 	Service.getpersonne(p);
-	
-}
-@PostMapping
-public void register( @RequestBody Personne p) {
-	Service.create(p);;
-}
+	private final PersonneService personneService;
+
+	private PersonneController(PersonneService personneService) {
+		this.personneService=personneService;
+	}
+
+	@GetMapping
+	public List<Personne> getAllPersonnes() {
+		return personneService.getAllPersonnes();
+	}
+
+	@GetMapping("/{id}")
+	public Optional<Personne> getPersonne(@PathVariable Long id) {
+		return personneService.getPersonne(id);
+	}
+
+	@PostMapping
+	public void register(@RequestBody Personne p) {
+		personneService.createPersonne(p);
+	}
+
 }
