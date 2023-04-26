@@ -1,8 +1,6 @@
-package com.example.demo.Prél;
+package com.example.demo.entities;
 
-import com.example.demo.personne.Personne;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,8 +8,8 @@ import java.util.Date;
 
 @Entity
 @Data
-@AllArgsConstructor @NoArgsConstructor
-public class ResultatPrel {
+@NoArgsConstructor
+public class ResultatPrelevement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,4 +22,5 @@ public class ResultatPrel {
     private Prelevement prelevement;
     @OneToOne(mappedBy = "resultatPrel")
     private DetailNonConformite detailNonConformite;
+
 }
